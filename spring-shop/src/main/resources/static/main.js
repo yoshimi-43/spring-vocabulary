@@ -1,6 +1,14 @@
 addEventListener("DOMContentLoaded", () => {
 	fetch('/product')
-		.then(response => response.json())
+		.then(response => {
+			if(!response.ok){
+				return response.json()
+				.then(errorBody => {
+					throw new Error(errorBody.detail);
+				});
+			}
+			return response.json()
+		})
 		.then(body => {
 			const productList = document.getElementById('product-list');
 			body.forEach(product => {
@@ -13,5 +21,8 @@ addEventListener("DOMContentLoaded", () => {
 				productList.appendChild(row);
 			})
 		})
-		.catch(error => console.log(error));
+		.catch(error => {
+			console.log(error.message);
+			window.location.href = '/error.html';
+		})
 });
