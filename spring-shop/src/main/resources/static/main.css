@@ -1,0 +1,32 @@
+h1, h2{
+	color: blue;
+}
+body{
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 20px;
+	background-color: aliceblue;
+}
+table{
+	width: 100%;
+	background-color: white;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-collapse: collapse;
+}
+th{
+	padding: 10px;
+	text-align: left;
+	background-color: black;
+	color: white;
+}
+td{
+	padding: 10px;
+	border: 1px solid;
+}
+botton{
+	background-color: gray;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 15px;
+}
