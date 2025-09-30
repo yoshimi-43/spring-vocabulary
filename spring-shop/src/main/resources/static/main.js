@@ -52,6 +52,28 @@ function addToCart(productId){
 
 }
 
+function purchaseCart(){
+	fetch(`/cart/purchase`, {
+		method: 'POST'
+	})
+	.then(response => {
+		if(!response.ok){
+			return response.json()
+			.then(errorBody => {
+				throw new Error(errorBody.detail);
+			});
+		}
+	})
+	.then(() => {
+		getAllCart();
+	})
+	.catch(error => {
+		console.log(error.message);
+		window.location.href = '/error.html';
+	})
+
+}
+
 function updateCart(cartId, quantity){
 	fetch(`/cart`, {
 		method: 'PUT',
@@ -127,9 +149,15 @@ function getAllCart(){
 			`;
 			productList.appendChild(row);
 		})
+		changePurchaseButton(body.length)
 	})
 	.catch(error => {
 		window.location.href = '/error.html';
 		console.log(error);
 	})
+}
+
+function changePurchaseButton(CartitemCount){
+	const purchaseButton = document.getElementById('purchase-button');
+	purchaseButton.disabled = CartitemCount ===0;
 }

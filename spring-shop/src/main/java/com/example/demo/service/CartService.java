@@ -54,4 +54,22 @@ public class CartService {
 	public void deleteCart(Long cartId) {
 		cartRepository.deleteById(cartId);
 	}
+	
+	public void purchaseCart() {
+		System.out.println("商品を購入しました");
+		// カート情報を全権取得
+		List<Cart> cartList = getAllCart();
+		// カート情報をコンソールに表示
+		double totalPrice = 0;
+		for (Cart cart: cartList) {
+			Product product = cart.getProduct();
+			int quantity = cart.getQuantity();
+			double total = quantity * product.getPrice();
+			totalPrice += total;
+			System.out.println("商品名：" + product.getName() + ",個数：" + quantity + ",値段：" + total);
+		}
+		System.out.println("合計金額：" + totalPrice);
+		// カート情報リセット
+		cartRepository.deleteAll();
+	}
 }

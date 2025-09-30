@@ -30,3 +30,14 @@ botton{
 	border-radius: 4px;
 	font-size: 15px;
 }
+
+.cart_header{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.cart_header button:disaabled{
+	background-color: gray;
+	cursor: not-allowed;
+}
