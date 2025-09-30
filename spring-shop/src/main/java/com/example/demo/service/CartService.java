@@ -50,4 +50,8 @@ public class CartService {
 			 new RuntimeException("カート情報がありません");
 		}
 	}
+	
+	public void deleteCart(Long cartId) {
+		cartRepository.deleteById(cartId);
+	}
 }
