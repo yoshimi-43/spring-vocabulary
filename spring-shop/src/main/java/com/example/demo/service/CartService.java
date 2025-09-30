@@ -38,9 +38,16 @@ public class CartService {
 			Cart newItem = new Cart(product, 1);
 			cartRepository.save(newItem);
 		}
-		
-		
-		
 	}
-
+	
+	public void updateCartItem(Cart cart) {
+		Optional<Cart> cartItem = cartRepository.findById(cart.getId());
+		if(cartItem.isPresent()) {
+			Cart item = cartItem.get();
+			item.setQuantity(cart.getQuantity());
+			cartRepository.save(item);
+		} else {
+			 new RuntimeException("カート情報がありません");
+		}
+	}
 }

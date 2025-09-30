@@ -32,7 +32,7 @@ addEventListener("DOMContentLoaded", () => {
 
 function addToCart(productId){
 	fetch(`/cart/${productId}`, {
-		method: 'Post'
+		method: 'POST'
 	})
 	.then(response => {
 		if(!response.ok){
@@ -50,6 +50,31 @@ function addToCart(productId){
 		window.location.href = '/error.html';
 	})
 
+}
+
+function updateCart(cartId, quantity){
+	fetch(`/cart`, {
+		method: 'PUT',
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ id: cartId, quantity: quantity})
+	})
+	.then(response => {
+		if(!response.ok){
+			return response.json()
+			.then(errorBody => {
+				throw new Error(errorBody.detail);
+			});
+		}
+	})
+	.then(() => {
+		getAllCart();
+	})
+	.catch(error => {
+		window.location.href = '/error.html';
+		console.log(error);
+	})
 }
 
 function getAllCart(){
@@ -70,7 +95,12 @@ function getAllCart(){
 			const row = document.createElement('tr')
 			row.innerHTML = `
 				<td>${cart.product.name}</td>
-				<td>${cart.quantity}</td>
+				<td>
+					<input type="number" min="1"
+					value="${cart.quantity}"
+					onchange="updateCart(${cart.id}, ${cart.quantity})"
+					/>
+				</td>
 				<td>${cart.product.price * cart.quantity}</td>
 			`;
 			productList.appendChild(row);
